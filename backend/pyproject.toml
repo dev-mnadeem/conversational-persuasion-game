@@ -1,0 +1,29 @@
+[project]
+name = "doorman-game-backend"
+version = "1.0.0"
+description = "A persuasion game with a hidden judge and a pluggable doorman brain"
+requires-python = ">=3.11"
+
+[tool.ruff]
+line-length = 110
+target-version = "py311"
+exclude = [".venv", "sessions"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "UP", "B", "C4", "SIM", "RET", "ARG"]
+ignore = ["B008"]  # FastAPI's Depends() default is the documented idiom
+
+[tool.ruff.lint.per-file-ignores]
+# These modules are mostly data: written dialogue and tactic regexes. Wrapping
+# a line of Marcus's speech to satisfy a column limit makes it harder to read,
+# not easier.
+"app/providers/local.py" = ["E501"]
+"app/game/injection.py" = ["E501"]
+"app/game/prompts.py" = ["E501"]
+"app/providers/base.py" = ["ARG002"]
+"tests/*" = ["ARG001", "ARG002", "E501"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+filterwarnings = ["ignore::DeprecationWarning"]

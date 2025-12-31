@@ -1,0 +1,37 @@
+# Environment
+.env
+.env.local
+venv/
+.venv/
+__pycache__/
+*.pyc
+
+# Dependencies
+node_modules/
+
+# Build outputs
+dist/
+build/
+*.egg-info/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+
+# Sessions (game data)
+backend/sessions/*.json
+
+# Logs
+*.log
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+coverage/
+
+# Tooling caches
+.ruff_cache/
