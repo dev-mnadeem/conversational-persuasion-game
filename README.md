@@ -63,3 +63,29 @@ All tests run against the offline provider. Linting: `ruff check app tests` in `
 - The offline judge is regex based and can't tell a real story from a plausible one.
 - Injection filtering is a mitigation, not a guarantee.
 - There are no accounts; anyone with a session id can continue that run. Swapping the file store for Redis would be the next step for running more than one process.
+
+## Session flow and verified local play
+
+```mermaid
+flowchart LR
+    Browser[React client] --> Session[Create file-backed session]
+    Session --> Turn[Submit one line]
+    Turn --> Filter[Injection pre-filter]
+    Filter --> Judge[Local rule-based judge]
+    Judge --> State[Update score and turns remaining]
+    State --> Save[Persist session transcript]
+    Save --> Browser
+    State --> End[Ending and debrief when terminal]
+```
+
+![Native local conversation](docs/screenshots/native-desktop.png)
+
+[Mobile capture](docs/screenshots/native-mobile.png) and
+[browser verification](docs/native-browser.json). This run sent a real turn to
+the native FastAPI server with a disposable session directory and the local
+provider. No hosted model, text-to-speech service, or paid account was used.
+
+The Python suite passes 198 tests; the frontend suite and production build also
+pass. `backend/requirements-dev-lock.txt` freezes the tested Python 3.12
+contributor environment; the existing requirements files remain the dependency
+inputs. Docker execution and hosted-provider behavior remain unverified here.

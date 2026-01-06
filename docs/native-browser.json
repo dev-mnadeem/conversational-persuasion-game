@@ -1,0 +1,9 @@
+{
+  "mode": "Local deterministic provider; disposable session store",
+  "checks": [
+    "Browser rendering",
+    "Desktop and mobile capture",
+    "No JavaScript page errors",
+    "Native turn completed"
+  ]
+}
