@@ -89,3 +89,7 @@ The Python suite passes 198 tests; the frontend suite and production build also
 pass. `backend/requirements-dev-lock.txt` freezes the tested Python 3.12
 contributor environment; the existing requirements files remain the dependency
 inputs. Docker execution and hosted-provider behavior remain unverified here.
+
+## Author
+
+[**Muhammad Nadeem**](https://github.com/dev-mnadeem)
