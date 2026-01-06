@@ -1,0 +1,30 @@
+services:
+  backend:
+    build:
+      context: ./backend
+    environment:
+      # The game runs offline by default. Set DOORMAN_PROVIDER=venice and
+      # supply VENICE_API_KEY in a .env file to use hosted models instead.
+      DOORMAN_PROVIDER: ${DOORMAN_PROVIDER:-local}
+      VENICE_API_KEY: ${VENICE_API_KEY:-}
+      DOORMAN_TTS_ENABLED: ${DOORMAN_TTS_ENABLED:-false}
+      DOORMAN_CORS_ORIGINS: http://localhost:7322
+      DOORMAN_SESSIONS_DIR: /var/lib/doorman/sessions
+    volumes:
+      - sessions:/var/lib/doorman/sessions
+    expose:
+      - "7321"
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+    depends_on:
+      backend:
+        condition: service_healthy
+    ports:
+      - "7322:8080"
+    restart: unless-stopped
+
+volumes:
+  sessions:
